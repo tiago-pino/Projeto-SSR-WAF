@@ -1,0 +1,34 @@
+{
+  "blocked_domains": [
+    "example-blocked.com",
+    "another-blocked-site.org"
+  ],
+  "blocked_ips": [
+    "192.168.1.100",
+    "10.0.0.5",
+    "172.18.0.1"
+  ],
+  "blocked_paths_for_all_domains": [
+    "/admin",
+    "/wp-login.php",
+    "/.git",
+    "/debug"
+  ],
+  "blocked_paths_for_specific_domain": {
+    "info.cern.ch": ["/forbidden_on_cern", "/private_cern_path"],
+    "example.com": ["/specific_example_block"]
+  },
+  "log_level": "INFO",
+
+  "suspicious_query_patterns": [
+    "<script>",
+    "' OR '1'='1'",
+    "UNION SELECT",
+    "../"
+  ],
+  "blocked_user_agents": [
+    "BadBot/1.0",
+    "EvilScanner/2.2",
+    "Wget/1.1 (test-block-wget)"
+  ]
+}
