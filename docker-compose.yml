@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: '3.8' # Specifies the version of the Docker Compose file format
+
+services:
+   waf:
+     build:
+       context: .
+     #command: sleep infinity # <--- Add this line to keep container running
+     ports: # ... rest of your service definition
+       - "8080:8080"
+     dns: # ...
+       - 8.8.8.8
+       - 1.1.1.1
+     volumes: # ...
+       - ./waf.py:/app/waf.py
+       - ./requirements.txt:/app/requirements.txt
+       - ./config.json:/app/config.json
