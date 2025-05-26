@@ -8,7 +8,7 @@ from urllib.parse import urlparse, parse_qs # For parsing URL paths and query st
 # --- Configuration Loading ---
 CONFIG_FILE = 'config.json'
 CONFIG = {}
-LISTEN_PORT = 8080 # You can also move this to config.json if you like
+LISTEN_PORT = 8080
 
 def load_config():
     global CONFIG
@@ -19,8 +19,8 @@ def load_config():
         "blocked_paths_for_all_domains": [],
         "blocked_paths_for_specific_domain": {},
         "log_level": "INFO",
-        "suspicious_query_patterns": [], # Added for Phase 3
-        "blocked_user_agents": []      # Added for Phase 3
+        "suspicious_query_patterns": [],
+        "blocked_user_agents": []
     }
     if os.path.exists(CONFIG_FILE):
         try:
@@ -107,16 +107,16 @@ class WAFRequestHandler(BaseHTTPRequestHandler):
         user_agent = self.headers.get('User-Agent', '')
         for blocked_ua_pattern in CONFIG.get("blocked_user_agents", []):
             # Using "in" for partial match, "==" for exact match.
-            # For this example, let's use exact match as per initial Phase 3 suggestion.
+            # For this example we use exact match
             if blocked_ua_pattern == user_agent: 
                 self.send_block_response(f"User-Agent '{user_agent}' is blocked.")
                 return
-            # If you want partial match:
+            # For partial match:
             # if blocked_ua_pattern.lower() in user_agent.lower():
             #     self.send_block_response(f"User-Agent containing '{blocked_ua_pattern}' is blocked (Full UA: '{user_agent}').")
             #     return
 
-        # 6. Check Suspicious Query Parameter Patterns (Phase 3)
+        # 6. Check Suspicious Query Parameter Patterns
         for param_name, param_values_list in query_params.items():
             for value_str in param_values_list: # param_values_list is a list of strings
                 for pattern in CONFIG.get("suspicious_query_patterns", []):
@@ -271,7 +271,7 @@ class WAFRequestHandler(BaseHTTPRequestHandler):
     
     # Suppress default http.server logging to avoid duplicate log lines with our custom prints
     def log_message(self, format, *args):
-        # You can enable this if you want the default logging format,
+        # Enable this for the default logging format,
         # but it might be redundant with the custom print statements.
         # super().log_message(format, *args)
         pass
