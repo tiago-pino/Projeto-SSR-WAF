@@ -18,7 +18,7 @@ RUN echo "Attempting to install debian-archive-keyring with dpkg..." && \
     rm /tmp/${DEBIAN_KEYRING_PKG_FILENAME} && \
     echo "debian-archive-keyring installation via dpkg attempted."
 
-# Now that the keyring is (hopefully) installed, update apt and install your tools.
+# Now that the keyring is installed, update apt and install your tools.
 RUN echo "Attempting apt-get update and package installation..." && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
